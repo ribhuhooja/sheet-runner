@@ -7,11 +7,10 @@ public class Player : MonoBehaviour {
     private PlayerControls controls;
 
     private int moveDir;    // 1, -1 or 0 depending on whether the player is moving up, down or not moving
-    [SerializeField] private int spacing;
     private float timeSinceLastMove = 0;
 
-    // consts
-    private const float timeBetweenMoves = 0.5f;
+    // magic numbers
+    [SerializeField] private float timeBetweenMoves;
 
     private void Awake() {
         controls = new PlayerControls();
@@ -57,9 +56,24 @@ public class Player : MonoBehaviour {
     void Update() {
         if (timeSinceLastMove > timeBetweenMoves) {
             timeSinceLastMove = 0;
-            transform.position = transform.position + new Vector3(0, moveDir * spacing, 0);
+            if (canMove()) {
+                transform.position = transform.position + new Vector3(0, moveDir * GlobalConfig.distanceBetweenLines * 0.5f, 0);
+            }
         }
 
         timeSinceLastMove += Time.deltaTime;
     }
+
+    private bool canMove() {
+        if (moveDir == 1 && transform.position.y >= GlobalConfig.distanceBetweenLines * 2) { return false; }
+        if (moveDir == -1 && transform.position.y <= GlobalConfig.distanceBetweenLines * -2) { return false; }
+        return true;
+    }
 }
+
+
+
+
+
+
+
