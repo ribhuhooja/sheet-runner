@@ -44,6 +44,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shift Pressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""bbabf00f-0611-4fe2-a04b-357c3d9acfb3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,6 +99,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""006dc130-1566-4bcd-874f-aa49c125fa1b"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shift Pressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -100,6 +120,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_main = asset.FindActionMap("main", throwIfNotFound: true);
         m_main_MoveUp = m_main.FindAction("Move Up", throwIfNotFound: true);
         m_main_MoveDown = m_main.FindAction("Move Down", throwIfNotFound: true);
+        m_main_ShiftPressed = m_main.FindAction("Shift Pressed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,12 +184,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
     private readonly InputAction m_main_MoveUp;
     private readonly InputAction m_main_MoveDown;
+    private readonly InputAction m_main_ShiftPressed;
     public struct MainActions
     {
         private @PlayerControls m_Wrapper;
         public MainActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveUp => m_Wrapper.m_main_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_main_MoveDown;
+        public InputAction @ShiftPressed => m_Wrapper.m_main_ShiftPressed;
         public InputActionMap Get() { return m_Wrapper.m_main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -184,6 +207,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveDown.started += instance.OnMoveDown;
             @MoveDown.performed += instance.OnMoveDown;
             @MoveDown.canceled += instance.OnMoveDown;
+            @ShiftPressed.started += instance.OnShiftPressed;
+            @ShiftPressed.performed += instance.OnShiftPressed;
+            @ShiftPressed.canceled += instance.OnShiftPressed;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -194,6 +220,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveDown.started -= instance.OnMoveDown;
             @MoveDown.performed -= instance.OnMoveDown;
             @MoveDown.canceled -= instance.OnMoveDown;
+            @ShiftPressed.started -= instance.OnShiftPressed;
+            @ShiftPressed.performed -= instance.OnShiftPressed;
+            @ShiftPressed.canceled -= instance.OnShiftPressed;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -215,5 +244,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
+        void OnShiftPressed(InputAction.CallbackContext context);
     }
 }
