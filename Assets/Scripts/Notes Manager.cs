@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NotesManager : MonoBehaviour {
 
-    private readonly Dictionary<string, int> noteIndices = new Dictionary<string, int>
+    public readonly Dictionary<string, int> noteIndices = new Dictionary<string, int>
         {
             {"C", 0},
             {"D", 1},
@@ -20,7 +20,7 @@ public class NotesManager : MonoBehaviour {
             {"Gu", 11 }
         };
 
-    [SerializeField] private AudioClip[] notes;
+    [SerializeField] public AudioClip[] notes;
     private AudioSource audioSource;
 
     private void Awake() {
@@ -32,5 +32,13 @@ public class NotesManager : MonoBehaviour {
             audioSource.clip = notes[index];
             audioSource.Play();
         }
+    }
+
+    public void playNoteByIndex(int index) {
+        if (index >= notes.Length || index < 0) {
+            return;
+        }
+        audioSource.clip = notes[index];
+        audioSource.Play();
     }
 }

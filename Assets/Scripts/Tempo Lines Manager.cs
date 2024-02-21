@@ -8,7 +8,6 @@ public class TempoLinesManager : MonoBehaviour {
 
     private AudioSource audioSource;
     [SerializeField] private TempoLine tempoLinePrefab;
-    private Queue<TempoLine> tempoLines;
 
     [SerializeField] private NotesManager notesManager;
 
@@ -19,7 +18,6 @@ public class TempoLinesManager : MonoBehaviour {
         secondsBetweenTicks = 60 / bpm;
     }
     private void Start() {
-        tempoLines = new Queue<TempoLine>();
         InvokeRepeating(nameof(MakeTempoLines), 0, secondsBetweenTicks);
         // InvokeRepeating(nameof(Tick), 0, secondsBetweenTicks);
 
@@ -40,8 +38,6 @@ public class TempoLinesManager : MonoBehaviour {
         line.SetSpeed(secondsBetweenTicks);
         line.saveReferenceToNotesManager(notesManager);
         line.transform.position = new Vector3(GlobalConfig.screenWidth / 2, 0, 0);
-        tempoLines.Enqueue(line);
-
 
     }
 }

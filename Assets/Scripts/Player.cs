@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +15,8 @@ public class Player : MonoBehaviour {
     // magic numbers
     [SerializeField] private float timeBetweenMoves;
 
+    [SerializeField] private NotesManager notesManager;
+
     private void Awake() {
         controls = new PlayerControls();
         controls.main.MoveUp.performed += moveUp_performed;
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour {
 
         transform.position = new Vector3(GlobalConfig.playerX, transform.position.y, transform.position.z);
     }
+
 
     private void ShiftPressed_canceled(InputAction.CallbackContext obj) {
         shiftPressed = false;
@@ -63,11 +68,6 @@ public class Player : MonoBehaviour {
         controls.main.Disable();
     }
 
-    void Start() {
-
-    }
-
-
     void Update() {
         if (timeSinceLastMove > timeBetweenMoves) {
             timeSinceLastMove = 0;
@@ -101,6 +101,13 @@ public class Player : MonoBehaviour {
         } else if (transform.position.y <= GlobalConfig.distanceBetweenLines * -2) {
             transform.position = new Vector3(transform.position.x, GlobalConfig.distanceBetweenLines * -2, transform.position.z);
         }
+    }
+
+    public int getNoteIndexFromYCoord() {
+        // Player starts out on the B line, which is Y coord 0
+        // if player's y-coord is y, then the index of the note to play
+        // is (2*y/dist-between-lines) + index of B
+        return (int)(2 * transform.position.y / GlobalConfig.distanceBetweenLines) + notesManager.noteIndices["B"];
     }
 }
 
