@@ -14,9 +14,9 @@ In the current implementation, there is no "game" yet, but the player can move t
 character to the right spot to play whatever melody is desired.
 
 Controls:
-W and S or arrow keys to move up or down
-Space to toggle note-playing mode
-Hold shift to temporarily go out of bounds (upto a limit)
+- W and S or arrow keys to move up or down
+- Space to toggle note-playing mode
+- Hold shift to temporarily go out of bounds (upto a limit)
 
 ## Build
 The built project can be viewed here:
