@@ -60,6 +60,7 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+build-*
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -76,3 +77,6 @@ TODO
 
 # vim files
 *.sw?
+
+# macOS stuff
+.DS_Store

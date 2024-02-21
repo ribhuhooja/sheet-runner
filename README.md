@@ -13,8 +13,14 @@ Implementation -
 In the current implementation, there is no "game" yet, but the player can move the
 character to the right spot to play whatever melody is desired.
 
-## Build
+Controls:
+W and S or arrow keys to move up or down
+Space to toggle note-playing mode
+Hold shift to temporarily go out of bounds (upto a limit)
 
+## Build
+The built project can be viewed here:
+https://rustymechanical.itch.io/sheet-runner-demo
 
 ## Other Notes
 The "notes" audio files are taken from https://theremin.music.uiowa.edu/MISpiano.html
