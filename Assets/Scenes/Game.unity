@@ -1019,6 +1019,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1723566903775940214, guid: 5a778af5d3e674ca9a6d39f00e43bcc1, type: 3}
+      propertyPath: notesManager
+      value: 
+      objectReference: {fileID: 1343141489}
     - target: {fileID: 2577880554485077939, guid: 5a778af5d3e674ca9a6d39f00e43bcc1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5

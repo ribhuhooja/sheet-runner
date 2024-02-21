@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     private float timeSinceLastMove = 0;
     private bool shiftPressed = false;
 
+    public bool isPlayingNotes = true;
+
     // magic numbers
     [SerializeField] private float timeBetweenMoves;
 
@@ -27,9 +29,15 @@ public class Player : MonoBehaviour {
         controls.main.ShiftPressed.performed += ShiftPressed_performed;
         controls.main.ShiftPressed.canceled += ShiftPressed_canceled;
 
+        controls.main.TogglePlay.performed += TogglePlay_performed;
+
         transform.position = new Vector3(GlobalConfig.playerX, transform.position.y, transform.position.z);
     }
 
+    private void TogglePlay_performed(InputAction.CallbackContext obj) {
+        isPlayingNotes = !isPlayingNotes;
+        ToggleAlpha();
+    }
 
     private void ShiftPressed_canceled(InputAction.CallbackContext obj) {
         shiftPressed = false;
@@ -108,6 +116,17 @@ public class Player : MonoBehaviour {
         // if player's y-coord is y, then the index of the note to play
         // is (2*y/dist-between-lines) + index of B
         return (int)(2 * transform.position.y / GlobalConfig.distanceBetweenLines) + notesManager.noteIndices["B"];
+    }
+
+    // makes the player transparent when not playing notes
+    private void ToggleAlpha() {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr.color.a == 1) {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
+        } else {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
+        }
+
     }
 }
 

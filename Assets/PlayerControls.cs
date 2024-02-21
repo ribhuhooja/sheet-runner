@@ -53,6 +53,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toggle Play"",
+                    ""type"": ""Button"",
+                    ""id"": ""be0f49e8-0171-43a5-822e-134877ec8bcc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -110,6 +119,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Shift Pressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb11162d-a844-49fd-8e75-3df6a26b16b3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Play"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -121,6 +141,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_main_MoveUp = m_main.FindAction("Move Up", throwIfNotFound: true);
         m_main_MoveDown = m_main.FindAction("Move Down", throwIfNotFound: true);
         m_main_ShiftPressed = m_main.FindAction("Shift Pressed", throwIfNotFound: true);
+        m_main_TogglePlay = m_main.FindAction("Toggle Play", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,6 +206,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_main_MoveUp;
     private readonly InputAction m_main_MoveDown;
     private readonly InputAction m_main_ShiftPressed;
+    private readonly InputAction m_main_TogglePlay;
     public struct MainActions
     {
         private @PlayerControls m_Wrapper;
@@ -192,6 +214,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @MoveUp => m_Wrapper.m_main_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_main_MoveDown;
         public InputAction @ShiftPressed => m_Wrapper.m_main_ShiftPressed;
+        public InputAction @TogglePlay => m_Wrapper.m_main_TogglePlay;
         public InputActionMap Get() { return m_Wrapper.m_main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -210,6 +233,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ShiftPressed.started += instance.OnShiftPressed;
             @ShiftPressed.performed += instance.OnShiftPressed;
             @ShiftPressed.canceled += instance.OnShiftPressed;
+            @TogglePlay.started += instance.OnTogglePlay;
+            @TogglePlay.performed += instance.OnTogglePlay;
+            @TogglePlay.canceled += instance.OnTogglePlay;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -223,6 +249,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ShiftPressed.started -= instance.OnShiftPressed;
             @ShiftPressed.performed -= instance.OnShiftPressed;
             @ShiftPressed.canceled -= instance.OnShiftPressed;
+            @TogglePlay.started -= instance.OnTogglePlay;
+            @TogglePlay.performed -= instance.OnTogglePlay;
+            @TogglePlay.canceled -= instance.OnTogglePlay;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -245,5 +274,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
         void OnShiftPressed(InputAction.CallbackContext context);
+        void OnTogglePlay(InputAction.CallbackContext context);
     }
 }

@@ -22,8 +22,10 @@ public class TempoLine : MonoBehaviour {
 
         // Janky unity collision detection not working
         if (!notePlayed && Math.Abs(transform.position.x - GlobalConfig.playerX) < 0.1) {
-            notesManager.playNoteByIndex(player.getNoteIndexFromYCoord());
             notePlayed = true;
+            if (player.isPlayingNotes) {
+                notesManager.playNoteByIndex(player.getNoteIndexFromYCoord());
+            }
         }
 
         if (transform.position.x < -GlobalConfig.screenWidth / 2 - 1) {
