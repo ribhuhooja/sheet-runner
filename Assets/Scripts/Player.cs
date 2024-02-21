@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
 
         controls.main.ShiftPressed.performed += ShiftPressed_performed;
         controls.main.ShiftPressed.canceled += ShiftPressed_canceled;
+
+        transform.position = new Vector3(GlobalConfig.playerX, transform.position.y, transform.position.z);
     }
 
     private void ShiftPressed_canceled(InputAction.CallbackContext obj) {
